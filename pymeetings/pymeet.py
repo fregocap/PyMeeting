@@ -55,20 +55,20 @@ class GetMeetingHour():
         return timezones
 
 
-    def checkdate(self,date):
+    def __checkdate(self,date):
         """
         Function that checks that the date string is in the right format
         """
         
     
-    def Hours(self):
+    def __Hours(self):
         """
         Function that calculates the vector of times for a particular day
         """
         
         hours = []
 
-        if checkdate(self.day):
+        if self.__checkdate(self.day):
             for j in range(0, 24):
                 if j<10:
                     hours.append(self.day+' '+'0'+str(j)+':00')
