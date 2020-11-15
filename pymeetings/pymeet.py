@@ -36,24 +36,41 @@ class GetMeetingHour():
                 countries.append(None)
         return countries
 
+
+    def TimeZone(self, city):
+        """
+        Function that computes the timezone for a particular city
+        """
+        if citycheck(city):
+            place, (lat, lng) = self.g.geocode(city)
+            timezone = self.g.timezone((lat, lng))
+            return timezone
+        else:
+            print('The city %s does not exist' %city)
+            return 'The city %s does not exist' %city
+            
+
     
     def TimeZones(self):
         """
-        Function that computes the different timezones and provides a vector
+        Function that computes the different timezones for each city 
         """
         
         timezones = []
         for city in self.cities_vec:
-            if citycheck(city):
-                place, (lat, lng) = self.g.geocode(city)
-                timezone = self.g.timezone((lat, lng))
-                timezones.append(timezone)
-            else:
-                print('The city %s does not exist' %city)
-                timezones.append(None)
-
+                timezones.append(self.TimeZone(city))
+                
         return timezones
 
+
+    def CityTimes(self, city):
+        """
+        Function that given the cities provides the times
+        """
+        hour_vec = self.__Hours()
+        city_tz = pytz
+        for 
+    
 
     def __checkdate(self,date):
         """
@@ -84,11 +101,20 @@ class GetMeetingHour():
         """
         pass
     
-
+    
     def ConstructTable(self):
         """
         Function that provides the table of interest 
         """
-        df = pd.DataFrame({'Hour':self.Hours()})
+        dic_pd = {}
+        dic_pd['Hour'] = self.__Hours()
+        for city in self.cities_vec:
+            dic_pd[city] = self.CityTimes(city)
+            
+        
+        main_table = pd.DataFrame(dic_pd)
+
+
+        return main_table
         
 
