@@ -19,19 +19,32 @@ class GetMeetingHour():
         self.cities_vec = cities
         self.day = day
         self.g = geocoders.GoogleV3()
+
         
     def BestHour(self):
         pass
 
 
     def Countries(self):
-        pass
+        """
+        Function that computes the different countries where the cities are in
+        """
+        countries = []
+        for city in self.cities_vec:
+            if citycheck(city):
+                ctry = country(city)
+                countries.append(ctry)
+            else:
+                print('The city %s does not exist' %s)
+                countries.append(None)
+        return countries
+
     
     def TimeZones(self):
         """
         Function that computes the different timezones and provides a vector
         """
-        # creation of the pandas dataframe
+        
         timezones = []
         for city in self.cities_vec:
             if citycheck(city):
