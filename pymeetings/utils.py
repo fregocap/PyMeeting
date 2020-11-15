@@ -1,4 +1,24 @@
 import pandas as pd
+from datetime import datetime
+
+
+def str2date(strdat):
+    """
+    Function that transforms a str into datetime format
+    
+    :param str strdat: date in the format of a string
+    """
+    return datetime.strptime(strdat,'%Y/%m/%d %H:%M')
+
+
+def date2str(datstr):
+    """
+    Function that transforms a datetime into a string
+
+    :param date datstr: date in datetime format
+    """
+    return datetime.strftime(datstr, '%Y/%m/%d %H:%M')
+
 
 
 

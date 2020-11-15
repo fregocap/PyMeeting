@@ -47,7 +47,7 @@ class GetMeetingHour():
             return timezone
         else:
             print('The city %s does not exist' %city)
-            return 'The city %s does not exist' %city
+            return None
             
 
     
@@ -62,14 +62,17 @@ class GetMeetingHour():
                 
         return timezones
 
-
+    
     def CityTimes(self, city):
         """
         Function that given the cities provides the times
         """
         hour_vec = self.__Hours()
-        city_tz = pytz
-        for 
+        tz_str = self.TimeZone(city)
+        city_tz = pytz.timezone(tz_str)
+        
+        for hour in hour_vec:
+            
     
 
     def __checkdate(self,date):
