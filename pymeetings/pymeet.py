@@ -70,11 +70,18 @@ class GetMeetingHour():
         hour_vec = self.__Hours()
         tz_str = self.TimeZone(city)
         city_tz = pytz.timezone(tz_str)
-        
-        for hour in hour_vec:
-            
-    
+        gmt_tz = pytz.timezone('GMT')
 
+        city_timestamp_vec = []
+        for hour in hour_vec:
+            gmt_timestamp = str2date(hour)
+            localized_timestamp = gmt_tz.localize(gmt_timestamp)
+            city_timestamp = localized_timestamp.astimezone(city_tz)
+            city_timestamp_vec.append(city_timestamp)
+
+        return city_timestamp_vec
+
+            
     def __checkdate(self,date):
         """
         Function that checks that the date string is in the right format
