@@ -115,7 +115,7 @@ class GetMeetingHour():
         """
         Function that computes the best hour for the meeting, the `feel lucky` guess
         """
-        pass
+        
     
     
     def ConstructTable(self):
