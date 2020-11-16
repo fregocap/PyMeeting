@@ -86,7 +86,13 @@ class GetMeetingHour():
         """
         Function that checks that the date string is in the right format
         """
-        
+        format_date = '%Y/%m/%d %H:%M'
+        try:
+            datetime.datetime.strptime(date, format_date)
+            return True
+        except:
+            return False
+
     
     def __Hours(self):
         """
@@ -117,14 +123,12 @@ class GetMeetingHour():
         Function that provides the table of interest 
         """
         dic_pd = {}
-        dic_pd['Hour'] = self.__Hours()
+        dic_pd['GMT'] = self.__Hours()
         for city in self.cities_vec:
             dic_pd[city] = self.CityTimes(city)
             
         
         main_table = pd.DataFrame(dic_pd)
-
-
         return main_table
         
 
