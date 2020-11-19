@@ -83,19 +83,19 @@ class GetMeetingHour():
         return city_timestamp_vec
 
             
-    def checkdate(self,date):
+    def __checkdate(self,date):
         """
         Function that checks that the date string is in the right format
         """
         format_date = '%Y/%m/%d'
-#        try:
-        datetime.datetime.strptime(date, format_date)
-        #     return True
-        # except:
-        #     return False
+        try:
+            datetime.strptime(date, format_date)
+            return True
+        except:
+            return False
 
     
-    def Hours(self):
+    def __Hours(self):
         """
         Function that calculates the vector of times for a particular day
         """
@@ -124,9 +124,8 @@ class GetMeetingHour():
         Function that provides the table of interest 
         """
         dic_pd = {}
-        dic_pd['GMT'] = self.Hours()
+        dic_pd['GMT'] = self.__Hours()
         for city in self.cities_vec:
-            print(self.CityTimes(city))
             dic_pd[city] = self.CityTimes(city)
             
         
