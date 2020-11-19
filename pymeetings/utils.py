@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-
+import os
 
 def str2date(strdat):
     """
@@ -28,8 +28,9 @@ def citycheck(city):
     
     :param str city: the city that we would like to check against
     """
+    dirname = os.path.dirname(__file__)
     city = city.lower()
-    df_cities = pd.read_csv('world_cities.csv')
+    df_cities = pd.read_csv(dirname+'/'+'world_cities.csv')
     cities_list = df_cities['name'].tolist()
     cities_list = [cit.lower() for cit in cities_list]
     condition = city in cities_list
@@ -42,7 +43,8 @@ def country(city):
 
     :param str city: the city that we would like to check against
     """
-    df = pd.read_csv('world_cities.csv')
+    dirname = os.path.dirname(__file__)
+    df = pd.read_csv(dirname+'/'+'world_cities.csv')
     if citycheck(city):
         thecountry = df[df['name'] == city]['country'].tolist()
         return thecountry[0]

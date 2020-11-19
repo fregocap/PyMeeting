@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 from pymeetings.utils import *
 import pytz
-from geopy import geocoders
+from geopy.geocoders import Nominatim
+from timezonefinder import TimezoneFinder
 from datetime import datetime
 
 
@@ -19,7 +20,8 @@ class GetMeetingHour():
 
         self.cities_vec = cities
         self.day = day
-        self.g = geocoders.GoogleV3()
+        self.g = Nominatim(user_agent="geoapiExercises")
+        self.obj = TimezoneFinder()
 
 
     def Countries(self):
@@ -42,8 +44,8 @@ class GetMeetingHour():
         Function that computes the timezone for a particular city
         """
         if citycheck(city):
-            place, (lat, lng) = self.g.geocode(city)
-            timezone = self.g.timezone((lat, lng))
+            location = self.g.geocode(city)
+            timezone = self.obj.timezone_at(lng=location.longitude, lat=location.latitude)
             return timezone
         else:
             print('The city %s does not exist' %city)
