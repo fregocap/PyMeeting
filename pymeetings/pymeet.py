@@ -73,7 +73,6 @@ class GetMeetingHour():
         tz_str = self.TimeZone(city)
         city_tz = pytz.timezone(tz_str)
         gmt_tz = pytz.timezone('GMT')
-
         city_timestamp_vec = []
         for hour in hour_vec:
             gmt_timestamp = str2date(hour)
@@ -84,19 +83,19 @@ class GetMeetingHour():
         return city_timestamp_vec
 
             
-    def __checkdate(self,date):
+    def checkdate(self,date):
         """
         Function that checks that the date string is in the right format
         """
-        format_date = '%Y/%m/%d %H:%M'
-        try:
-            datetime.datetime.strptime(date, format_date)
-            return True
-        except:
-            return False
+        format_date = '%Y/%m/%d'
+#        try:
+        datetime.datetime.strptime(date, format_date)
+        #     return True
+        # except:
+        #     return False
 
     
-    def __Hours(self):
+    def Hours(self):
         """
         Function that calculates the vector of times for a particular day
         """
@@ -125,8 +124,9 @@ class GetMeetingHour():
         Function that provides the table of interest 
         """
         dic_pd = {}
-        dic_pd['GMT'] = self.__Hours()
+        dic_pd['GMT'] = self.Hours()
         for city in self.cities_vec:
+            print(self.CityTimes(city))
             dic_pd[city] = self.CityTimes(city)
             
         
