@@ -123,11 +123,17 @@ class GetMeetingHour():
         """
         Function that provides the table of interest 
         """
+        lowbound = pytz.utc.localize(datetime.strptime(self.day+' 08:00','%Y/%m/%d %H:%M'))
+        uppbound = pytz.utc.localize(datetime.strptime(self.day+' 17:00','%Y/%m/%d %H:%M'))
         dic_pd = {}
         dic_pd['GMT'] = self.__Hours()
         for city in self.cities_vec:
             dic_pd[city] = self.CityTimes(city)
-            dic_pd[city_+'fit'] = dic_pd[city]>
+            cond = []
+            for i in range(len(dic_pd[city])):
+                 cond.append((dic_pd[city][i]>lowbound) & (dic_pd[city][i]<uppbound))
+            dic_pd[city+'_fit'] = cond
+
             
         main_table = pd.DataFrame(dic_pd)
         return main_table
