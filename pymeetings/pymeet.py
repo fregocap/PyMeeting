@@ -127,8 +127,8 @@ class GetMeetingHour():
         dic_pd['GMT'] = self.__Hours()
         for city in self.cities_vec:
             dic_pd[city] = self.CityTimes(city)
+            dic_pd[city_+'fit'] = dic_pd[city]>
             
-        
         main_table = pd.DataFrame(dic_pd)
         return main_table
         
