@@ -17,8 +17,9 @@ pip install pymeetings
 Here is a simple example:
 
 ```Python
-from pymeetings.pymeet import GetMeetingHour(['Chicago', 'Paris'], '2020/11/23')
+from pymeetings.pymeet import GetMeetingHour
 
+getmet = GetMeetingHour(['Chicago', 'Paris'], '2020/11/23')
 df = getmet.ConstructTable()
 print(df)
 ```
