@@ -78,6 +78,7 @@ class GetMeetingHour():
             gmt_timestamp = str2date(hour)
             localized_timestamp = gmt_tz.localize(gmt_timestamp)
             city_timestamp = localized_timestamp.astimezone(city_tz)
+            city_timestamp = datetime.strftime(city_timestamp, '%Y/%m/%d %H:%M')
             city_timestamp_vec.append(city_timestamp)
 
         return city_timestamp_vec
@@ -123,15 +124,18 @@ class GetMeetingHour():
         """
         Function that provides the table of interest 
         """
-        lowbound = pytz.utc.localize(datetime.strptime(self.day+' 08:00','%Y/%m/%d %H:%M'))
-        uppbound = pytz.utc.localize(datetime.strptime(self.day+' 17:00','%Y/%m/%d %H:%M'))
+        lowbound = datetime.strptime(self.day+' 08:00','%Y/%m/%d %H:%M')
+        uppbound = datetime.strptime(self.day+' 17:00','%Y/%m/%d %H:%M')
         dic_pd = {}
         dic_pd['GMT'] = self.__Hours()
         for city in self.cities_vec:
             dic_pd[city] = self.CityTimes(city)
             cond = []
             for i in range(len(dic_pd[city])):
-                 cond.append((dic_pd[city][i]>lowbound) & (dic_pd[city][i]<uppbound))
+                tmp_time = datetime.strptime(dic_pd[city][i],'%Y/%m/%d %H:%M')
+                local_cond = (tmp_time >= lowbound) & (tmp_time <= uppbound)
+                cond.append(local_cond)
+                    
             dic_pd[city+'_fit'] = cond
 
             
