@@ -15,3 +15,6 @@ pip install pymeetings
 
 # Examples
 ---
+
+There are several examples that are present in the directory **examples**.
+
