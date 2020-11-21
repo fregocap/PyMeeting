@@ -128,18 +128,24 @@ class GetMeetingHour():
         uppbound = datetime.strptime(self.day+' 17:00','%Y/%m/%d %H:%M')
         dic_pd = {}
         dic_pd['GMT'] = self.__Hours()
+        column_fitness = []
         for city in self.cities_vec:
             dic_pd[city] = self.CityTimes(city)
+
             cond = []
             for i in range(len(dic_pd[city])):
                 tmp_time = datetime.strptime(dic_pd[city][i],'%Y/%m/%d %H:%M')
                 local_cond = (tmp_time >= lowbound) & (tmp_time <= uppbound)
-                cond.append(local_cond)
-                    
+                cond.append(local_cond)        
             dic_pd[city+'_fit'] = cond
 
-            
+            column_fitness.append(city+'_fit')
         main_table = pd.DataFrame(dic_pd)
-        return main_table
+
+        fitness_results = main_table[column_fitness].all(axis=1)
+        main_table['fitness'] = fitness_results
+        
+        final_table = main_table.drop(columns=column_fitness)
+        return final_table
         
 
